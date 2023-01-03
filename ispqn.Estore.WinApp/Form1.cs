@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,40 @@ namespace ispqn.Estore.WinApp
 
         private void btn_getconnectionstring_Click(object sender, EventArgs e)
         {
+            SQLDb.ApplicationName = "Test";
+            SQLDb.ConnectTimeout = 66;
+            SQLDb.Pooling = false;
             string connStr = SQLDb.GetConnectionString("default");
             MessageBox.Show(connStr);
+        }
+
+        private void btn_getconnection_Click(object sender, EventArgs e)
+        {
+            //SQLDb.ApplicationName = "conn test";
+            //SQLDb.Pooling = this.checkBox_pooling.Checked;
+            //SqlConnection conn =SQLDb.GetConnection("default");
+            //conn.Open();
+
+            //var commad = new SqlCommand("select * from Categories" , conn);
+            //var reader = commad.ExecuteReader();
+            //reader.Close();
+
+            //conn.Close();
+            //conn.Dispose();
+
+            SQLDb.ApplicationName = "conn test";
+            SQLDb.Pooling = this.checkBox_pooling.Checked;
+
+            using( SqlConnection conn = SQLDb.GetConnection("default"))
+            {
+                using (var commad = new SqlCommand("select * from Categories", conn))
+                {
+                    conn.Open();
+
+                    var reader = commad.ExecuteReader();
+                    reader.Close();
+                }
+            }
         }
     }
 }
