@@ -42,6 +42,7 @@ namespace ispqn.Estore.WinApp
             //conn.Close();
             //conn.Dispose();
 
+            //用using以免忘記close
             SQLDb.ApplicationName = "conn test";
             SQLDb.Pooling = this.checkBox_pooling.Checked;
 
@@ -55,6 +56,19 @@ namespace ispqn.Estore.WinApp
                     reader.Close();
                 }
             }
+        }
+
+        private void btn_Category_Click(object sender, EventArgs e)
+        {
+
+            bool isInt = int.TryParse(text_categoryid.Text, out int categroyId);
+            if(isInt == false)
+            {
+                MessageBox.Show("請輸入正確 categroy Id");
+                return;
+            }
+            var frm = new FormEditCategory(categroyId);
+            frm.ShowDialog();
         }
     }
 }
