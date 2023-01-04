@@ -26,26 +26,38 @@ namespace ispqn.Estore.WinApp
 
         private void FormEditCategory_Load(object sender, EventArgs e)
         {
-            using (var conn = SQLDb.GetConnection())
+            Category category = new CategoryRepository().GetCategory(categroyId);
+            if(category == null)
             {
-                string sql = $"select * from Categories where id ={categroyId}";
-                using (var commad =new SqlCommand(sql, conn))
-                {
-                    conn.Open();
-                    var reader = commad.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        txtName.Text = reader["Name"].ToString();
-                        txtDisplayOrder.Text = reader["DisplayOrder"].ToString();  
-                    }
-                    else
-                    {
-                        MessageBox.Show("record not found.");
-                        this.DialogResult = DialogResult.Cancel;
-                        return;
-                    }
-                }
+                MessageBox.Show("record not found.");
+                this.DialogResult = DialogResult.Cancel;
+                return;
             }
+            else
+            {
+                txtName.Text =category.Name;
+                txtDisplayOrder.Text = category.DisplayOrder.ToString();
+            }
+            //using (var conn = SQLDb.GetConnection())
+            //{
+            //    string sql = $"select * from Categories where id ={categroyId}";
+            //    using (var commad =new SqlCommand(sql, conn))
+            //    {
+            //        conn.Open();
+            //        var reader = commad.ExecuteReader();
+            //        if (reader.Read())
+            //        {
+            //            txtName.Text = reader["Name"].ToString();
+            //            txtDisplayOrder.Text = reader["DisplayOrder"].ToString();  
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("record not found.");
+            //            this.DialogResult = DialogResult.Cancel;
+            //            return;
+            //        }
+            //    }
+            //}
         }
     }
 }
