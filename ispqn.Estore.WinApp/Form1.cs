@@ -86,8 +86,18 @@ namespace ispqn.Estore.WinApp
 
         private void btn_GetProducts_Click(object sender, EventArgs e)
         {
-            var from = new FormProducts();
+            bool isInt = int.TryParse(text_categoryid.Text, out int value);
+            int? categoryId = isInt ? value : (int?)null;
+            string prodName = text_productName.Text;
+
+            var from = new FormProducts(categoryId,prodName);
             from.ShowDialog();
+        }
+
+        private void btn_createnews_Click(object sender, EventArgs e)
+        {
+            var form = new FormCreateNews();
+            form.ShowDialog();
         }
     }
 }

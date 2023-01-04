@@ -11,7 +11,7 @@ namespace ispan.Estore.SqlData
 {
 	public class ProductRepository
 	{
-		public IEnumerable<ProductDto>Search(int? categoryId=null)
+		public IEnumerable<ProductDto>Search(int? categoryId=null,string productName=null)
 		{
 			//這一行可以不必寫,只是方便日後在sql profiler查看
 			SQLDb.ApplicationName = "demo:search";
@@ -20,11 +20,21 @@ namespace ispan.Estore.SqlData
 			string sql = $@"
 select P.*,C.Name as CategoryName
 from Products as P inner join Categories as C on(P.CategoryId =C.Id)";
+
+			#region 生成where子句
+			string where =string.Empty;
 			if (categoryId.HasValue)
 			{
 				//最前面要加空白,才不會跟上面連一起
-				sql += $" Where P.CategoryId={categoryId.Value}";
+				where += $" and P.CategoryId={categoryId.Value}";
 			}
+			if (string.IsNullOrEmpty(productName) == false)
+			{
+				where += $" and P.Name Like '%{productName}%'";
+			}
+			where = where == string.Empty ? where : where = " where " + where.Substring(5);
+			sql += where;
+			#endregion
 			//最前面要加空白,才不會跟上面連一起
 			sql += " Order By C.DisplayOrder";
 			#endregion

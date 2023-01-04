@@ -36,6 +36,9 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.btn_ExectueScalar = new System.Windows.Forms.Button();
 			this.btn_GetProducts = new System.Windows.Forms.Button();
+			this.label2 = new System.Windows.Forms.Label();
+			this.text_productName = new System.Windows.Forms.TextBox();
+			this.btn_createnews = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// btn_getconnectionstring
@@ -117,11 +120,40 @@
 			this.btn_GetProducts.UseVisualStyleBackColor = true;
 			this.btn_GetProducts.Click += new System.EventHandler(this.btn_GetProducts_Click);
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(259, 335);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(40, 15);
+			this.label2.TabIndex = 9;
+			this.label2.Text = "Name";
+			// 
+			// text_productName
+			// 
+			this.text_productName.Location = new System.Drawing.Point(305, 332);
+			this.text_productName.Name = "text_productName";
+			this.text_productName.Size = new System.Drawing.Size(182, 25);
+			this.text_productName.TabIndex = 8;
+			// 
+			// btn_createnews
+			// 
+			this.btn_createnews.Location = new System.Drawing.Point(65, 383);
+			this.btn_createnews.Name = "btn_createnews";
+			this.btn_createnews.Size = new System.Drawing.Size(182, 40);
+			this.btn_createnews.TabIndex = 7;
+			this.btn_createnews.Text = "Create News";
+			this.btn_createnews.UseVisualStyleBackColor = true;
+			this.btn_createnews.Click += new System.EventHandler(this.btn_createnews_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.text_productName);
+			this.Controls.Add(this.btn_createnews);
 			this.Controls.Add(this.btn_GetProducts);
 			this.Controls.Add(this.btn_ExectueScalar);
 			this.Controls.Add(this.label1);
@@ -147,6 +179,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_ExectueScalar;
 		private System.Windows.Forms.Button btn_GetProducts;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox text_productName;
+		private System.Windows.Forms.Button btn_createnews;
 	}
 }
 
