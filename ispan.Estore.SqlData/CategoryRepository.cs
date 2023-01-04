@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using static ispan.Estore.SqlData.CategoryRepository;
 
 namespace ispan.Estore.SqlData
 {
@@ -36,6 +37,20 @@ namespace ispan.Estore.SqlData
                     }
                 }
                 return category;
+            }
+        }
+
+        public int GetProductCount(int categoryId)
+        {
+            using (var conn = SQLDb.GetConnection())
+            {
+                string sql = $"select count(*) from Products where Categoryid ={categoryId}";
+                using (var commad = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+                    object result = commad.ExecuteScalar();
+                    return Convert.ToInt32(result);
+                }
             }
         }
     }

@@ -70,5 +70,24 @@ namespace ispqn.Estore.WinApp
             var frm = new FormEditCategory(categroyId);
             frm.ShowDialog();
         }
+
+
+        private void btn_ExectueScalar_Click(object sender, EventArgs e)
+        {
+            bool isInt = int.TryParse(text_categoryid.Text, out int categroyId);
+            if(isInt == false)
+            {
+				MessageBox.Show("請輸入正確 categroy Id");
+				return;
+			}
+            int countOfProductsByCategory = new CategoryRepository().GetProductCount(categroyId);
+            MessageBox.Show(countOfProductsByCategory.ToString());
+        }
+
+        private void btn_GetProducts_Click(object sender, EventArgs e)
+        {
+            var from = new FormProducts();
+            from.ShowDialog();
+        }
     }
 }
