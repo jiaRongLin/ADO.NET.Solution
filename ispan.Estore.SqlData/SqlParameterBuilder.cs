@@ -43,7 +43,7 @@ namespace ispan.Estore.SqlData
 
 			return this;
 		}
-		public SqlParameterBuilder AddInt(string name, int? value, ParameterDirection direction = ParameterDirection.Input) //output
+		public SqlParameterBuilder AddInt(string name, int? value, ParameterDirection direction = ParameterDirection.Input)
 		{
 			var parameter = value.HasValue
 				? new SqlParameter(name, System.Data.SqlDbType.Int) { Value = value ,Direction=direction}

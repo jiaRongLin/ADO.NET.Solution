@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace ispan.Estore.SqlData
         public static string ApplicationName { get; set; }
         public static int ConnectTimeout { get; set; }
         public static bool? Pooling { get; set; }
+
         public static string GetConnectionString(string keyOfConnString)
         {
             var node =System.Configuration.ConfigurationManager
@@ -26,10 +28,56 @@ namespace ispan.Estore.SqlData
             
             return sb.ToString();
         }
-        public static SqlConnection GetConnection(string keyOfConnString = "default")
+        public static SqlConnection GetConnection() { return GetConnection("default"); }
+		public static SqlConnection GetConnection(string keyOfConnString = "default")
         {
             string connStr = GetConnectionString(keyOfConnString);
             return new SqlConnection(connStr); //建立一個SqlConnection物件並傳回
         }
-    }
+
+        public static int UpdateOrDelete(Func<SqlConnection>funConnection,string sql,params SqlParameter[]parameters)
+        {
+            using (var conn = funConnection())
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    if (parameters != null) cmd.Parameters.AddRange(parameters);
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+		public static int Create(Func<SqlConnection> funConnection, string sql, params SqlParameter[] parameters)
+		{
+            sql += ";select SCOPE_IDENTITY()";
+			using (var conn = funConnection())
+			{
+				
+				using (var cmd = conn.CreateCommand())
+				{
+					conn.Open();
+                    cmd.CommandText = sql;
+					if (parameters != null) cmd.Parameters.AddRange(parameters);
+
+					return Convert.ToInt32(cmd.ExecuteScalar());
+				}
+			}
+		}
+		public static News GetNews(Func<SqlConnection> funConnection, string sql)
+		{
+			using (var conn = SQLDb.GetConnection())
+			{
+				using (var cmd = new SqlCommand(sql, conn))
+				{
+					conn.Open();
+
+					var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+					return reader.Read()
+						? News.GetInstance(reader)
+						: null;
+				}
+			}
+		}
+	}
 }

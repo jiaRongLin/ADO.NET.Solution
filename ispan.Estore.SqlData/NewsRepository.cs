@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace ispan.Estore.SqlData
 {
@@ -12,8 +13,18 @@ namespace ispan.Estore.SqlData
 Insert into news
 (Title, Description , CreatedTime, ModifiedTime)
 values
-(@Title, @Description , @CreatedTime, @ModifiedTime);
-Set @newId= SCOPE_IDENTITY()";  //取得ID
+(@Title, @Description , @CreatedTime, @ModifiedTime);";  //取得ID
+
+			SqlParameter[] parameters = SqlParameterBuilder.Create()
+				.AddNVarChar("@Title", entity.Title, 50)
+				.AddNVarChar("@Description", entity.Description, 3000)
+				.AddDateTime("@CreatedTime", entity.CreatedTime)
+				.AddDateTime("@ModifiedTime", entity.ModifiedTime)
+				.AddInt("@newId", null, ParameterDirection.Output)
+
+				.Build();
+
+			return SQLDb.Create(SQLDb.GetConnection, sql, parameters);
 
 			//SqlParameter[] parameters = new SqlParameter[]
 			//{
@@ -25,29 +36,19 @@ Set @newId= SCOPE_IDENTITY()";  //取得ID
 			//	new SqlParameter("@newId",System.Data.SqlDbType.Int){ Direction =System.Data.ParameterDirection.Output},
 			//};
 
-			SqlParameter[] parameters = SqlParameterBuilder.Create()
-				.AddNVarChar("@Title", entity.Title, 50)
-				.AddNVarChar("@Description", entity.Description, 3000)
-				.AddDateTime("@CreatedTime", entity.CreatedTime)
-				.AddDateTime("@ModifiedTime", entity.ModifiedTime)
-				.AddInt("@newId", null, ParameterDirection.Output)
+			//using (var conn = SQLDb.GetConnection())
+			//{
+			//	using (var cmd = conn.CreateCommand())
+			//	{
+			//		conn.Open();
+			//		cmd.CommandText = sql;
+			//		cmd.Parameters.AddRange(parameters);
 
-				.Build();
+			//		cmd.ExecuteNonQuery();   //ExecuteReader讀資料ExecuteScalar擷取單一值 ExecuteNonQuery用來執行INSERT、UPDATE、DELETE和其他沒有返回值得SQL命令
 
-
-			using (var conn = SQLDb.GetConnection())
-			{
-				using (var cmd = conn.CreateCommand())
-				{
-					conn.Open();
-					cmd.CommandText = sql;
-					cmd.Parameters.AddRange(parameters);
-
-					cmd.ExecuteNonQuery();
-
-					return (int)cmd.Parameters["@newId"].Value;
-				}
-			}
+			//		return (int)cmd.Parameters["@newId"].Value;
+			//	}
+			//}
 		}
 
 		public int Delete(int newsId)
@@ -57,33 +58,37 @@ Set @newId= SCOPE_IDENTITY()";  //取得ID
 			SqlParameter[] parameters = SqlParameterBuilder.Create()
 				.AddInt("@Id",newsId)
 				.Build();
-			using (var conn = SQLDb.GetConnection())
-			{
-				conn.Open();
-				using (var cmd =new SqlCommand(sql, conn))
-				{
-					cmd.Parameters.AddRange(parameters);
-					return cmd.ExecuteNonQuery();
-				}
-			}
+
+			return SQLDb.UpdateOrDelete(SQLDb.GetConnection, sql, parameters);
+			//using (var conn = SQLDb.GetConnection())
+			//{
+			//	conn.Open();
+			//	using (var cmd =new SqlCommand(sql, conn))
+			//	{
+			//		cmd.Parameters.AddRange(parameters);
+			//		return cmd.ExecuteNonQuery();
+			//	}
+			//}
+			//return SQLDb.UpdateOrDelete(()=>SQLDb.GetConnection(), sql, parameters);
 		}
 
 		public News GetNews(int newsId)
 		{
 			var sql = $"Select * from News Where Id ={newsId}";
 
-			using (var conn = SQLDb.GetConnection())
-			{
-				using (var cmd = new SqlCommand(sql, conn))
-				{
-					conn.Open();
+			return SQLDb.GetNews(SQLDb.GetConnection, sql);
+			//using (var conn = SQLDb.GetConnection())
+			//{
+			//	using (var cmd = new SqlCommand(sql, conn))
+			//	{
+			//		conn.Open();
 
-					var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-					return reader.Read()
-						? News.GetInstance(reader)
-						: null;
-				}
-			}
+			//		var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+			//		return reader.Read()
+			//			? News.GetInstance(reader)
+			//			: null;
+			//	}
+			//}
 		}
 		public int Update(News entity)
 		{
@@ -100,19 +105,19 @@ where id =@Id;";
 				.AddInt("@Id", entity.ID)
 				.Build();
 
+			return SQLDb.UpdateOrDelete(SQLDb.GetConnection, sql, parameters);
+			//using (var conn = SQLDb.GetConnection())
+			//{
+			//	conn.Open();
+			//	using (var cmd =new SqlCommand(sql,conn))
+			//	{
 
-			using (var conn = SQLDb.GetConnection())
-			{
-				conn.Open();
-				using (var cmd =new SqlCommand(sql,conn))
-				{
-					
-					cmd.Parameters.AddRange(parameters);
+			//		cmd.Parameters.AddRange(parameters);
 
-					return cmd.ExecuteNonQuery();
+			//		return cmd.ExecuteNonQuery();
 
-				}
-			}
+			//	}
+			//}
 		}
 	}
 
