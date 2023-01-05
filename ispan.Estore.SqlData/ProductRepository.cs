@@ -23,6 +23,8 @@ from Products as P inner join Categories as C on(P.CategoryId =C.Id)";
 
 			#region 生成where子句
 			string where =string.Empty;
+
+			var parameters = new List<SqlParameter>();
 			if (categoryId.HasValue)
 			{
 				//最前面要加空白,才不會跟上面連一起
@@ -30,7 +32,9 @@ from Products as P inner join Categories as C on(P.CategoryId =C.Id)";
 			}
 			if (string.IsNullOrEmpty(productName) == false)
 			{
-				where += $" and P.Name Like '%{productName}%'";
+				//where += $" and P.Name Like '%{productName}%'";
+				where += $" And P.Name Like '%'+ @productName +'%'";
+				parameters.Add(new SqlParameter("@productName", System.Data.SqlDbType.NVarChar, 50) { Value = productName });
 			}
 			where = where == string.Empty ? where : where = " where " + where.Substring(5);
 			sql += where;
@@ -45,6 +49,7 @@ from Products as P inner join Categories as C on(P.CategoryId =C.Id)";
 				{
 					conn.Open();
 					cmd.CommandText = sql;
+					cmd.Parameters.AddRange(parameters.ToArray()); //Add一個參數 AddRange多個參數
 					var reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
 
 					while (reader.Read())
