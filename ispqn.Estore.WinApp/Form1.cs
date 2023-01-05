@@ -99,5 +99,38 @@ namespace ispqn.Estore.WinApp
             var form = new FormCreateNews();
             form.ShowDialog();
         }
-    }
+
+        private void btn_editnews_Click(object sender, EventArgs e)
+        {
+            bool isInt = int.TryParse(textNewsid.Text,out int newsId);
+            if(isInt == false)
+            {
+                MessageBox.Show("請輸入正確News ID");
+                return;
+            }
+            var frm = new FormEditNews(newsId);
+            frm.ShowDialog();
+        }
+
+        private void btn_delelte_Click(object sender, EventArgs e)
+        {
+            bool isInt = int.TryParse(textNewsid.Text,out int newsId);
+            if (!isInt)
+            {
+                MessageBox.Show("請輸入News Id,再試一次");
+                return;
+            }
+			int rowsAffected = new NewsRepository().Delete(newsId);
+
+            if (rowsAffected > 0)
+            {
+                MessageBox.Show("紀錄已刪除");
+            }
+            else
+            {
+                MessageBox.Show("沒有紀錄被刪除,可能此紀錄已不存在");
+            }
+
+		}
+	}
 }
