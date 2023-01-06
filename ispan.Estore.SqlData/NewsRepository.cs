@@ -53,7 +53,7 @@ values
 
 		public int Delete(int newsId)
 		{
-			string sql = @"Delete News where Id =@Id";
+			string sql = @"Delete from News where Id =@Id";
 
 			SqlParameter[] parameters = SqlParameterBuilder.Create()
 				.AddInt("@Id",newsId)
