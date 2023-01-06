@@ -34,7 +34,15 @@ namespace ispqn.Estore.WinApp
 		   };
 		private void buttonsave_Click(object sender, EventArgs e)
 		{
-			new UserRepository().Create(GetModel());
+			try
+			{
+				new UserRepository().Create(GetModel());
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("新增失敗喔!!!" + ex.Message);
+			}
+			
 
 			IGridContainer container = this.Owner as IGridContainer;
 			if (container != null) container.Display();
