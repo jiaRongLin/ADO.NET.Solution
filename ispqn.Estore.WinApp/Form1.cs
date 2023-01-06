@@ -132,5 +132,11 @@ namespace ispqn.Estore.WinApp
             }
 
 		}
-	}
+
+        private void buttonUser_Click(object sender, EventArgs e)
+        {
+            var frm = new FormUser();
+            frm.ShowDialog();
+        }
+    }
 }

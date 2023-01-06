@@ -37,7 +37,7 @@ VALUES
 
 		public int Delete(int userId)
 		{
-			string sql = $@"DELETE FROM{_tableName} WHERE Id ={userId}";
+			string sql = $@"DELETE FROM {_tableName} WHERE Id ={userId}";
 
 			return SQLDb.UpdateOrDelete(funConnection, sql);
 
@@ -73,7 +73,7 @@ WHERE Id ={entity.Id};";
 			//生成sql statement
 			string sql = $@"
 SELECT * 
-FROM{_tableName}";
+FROM {_tableName}";
 
 			#region 生成where子句
 			string where = string.Empty;

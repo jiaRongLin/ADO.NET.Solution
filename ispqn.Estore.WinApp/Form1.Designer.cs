@@ -43,7 +43,7 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.textNewsid = new System.Windows.Forms.TextBox();
 			this.btn_delelte = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
+			this.buttonUser = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// btn_getconnectionstring
@@ -187,21 +187,22 @@
 			this.btn_delelte.UseVisualStyleBackColor = true;
 			this.btn_delelte.Click += new System.EventHandler(this.btn_delelte_Click);
 			// 
-			// button1
+			// buttonUser
 			// 
-			this.button1.Location = new System.Drawing.Point(30, 346);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(182, 26);
-			this.button1.TabIndex = 14;
-			this.button1.Text = "Mad User";
-			this.button1.UseVisualStyleBackColor = true;
+			this.buttonUser.Location = new System.Drawing.Point(30, 346);
+			this.buttonUser.Name = "buttonUser";
+			this.buttonUser.Size = new System.Drawing.Size(182, 26);
+			this.buttonUser.TabIndex = 14;
+			this.buttonUser.Text = "MaintainUser";
+			this.buttonUser.UseVisualStyleBackColor = true;
+			this.buttonUser.Click += new System.EventHandler(this.buttonUser_Click);
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.buttonUser);
 			this.Controls.Add(this.btn_delelte);
 			this.Controls.Add(this.textNewsid);
 			this.Controls.Add(this.label3);
@@ -241,7 +242,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textNewsid;
 		private System.Windows.Forms.Button btn_delelte;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button buttonUser;
 	}
 }
 

@@ -102,14 +102,23 @@
     <EmbeddedResource Include="FormCreateNews.resx">
       <DependentUpon>FormCreateNews.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCreateUser.resx">
+      <DependentUpon>FormCreateUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormEditCategory.resx">
       <DependentUpon>FormEditCategory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormEditNews.resx">
       <DependentUpon>FormEditNews.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormEditUser.resx">
+      <DependentUpon>FormEditUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormProducts.resx">
       <DependentUpon>FormProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUser.resx">
+      <DependentUpon>FormUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
