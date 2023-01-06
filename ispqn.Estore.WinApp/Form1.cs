@@ -90,8 +90,8 @@ namespace ispqn.Estore.WinApp
             int? categoryId = isInt ? value : (int?)null;
             string prodName = text_productName.Text;
 
-            var from = new FormProducts(categoryId,prodName);
-            from.ShowDialog();
+            var frm = new FormProducts(categoryId,prodName);
+            frm.ShowDialog();
         }
 
         private void btn_createnews_Click(object sender, EventArgs e)
@@ -138,5 +138,27 @@ namespace ispqn.Estore.WinApp
             var frm = new FormUser();
             frm.ShowDialog();
         }
-    }
+
+		private void buttonProduct_Click(object sender, EventArgs e)
+		{
+			bool isInt = int.TryParse(text_categoryid.Text, out int value);
+			int? categoryId = isInt ? value : (int?)null;
+			string prodName = text_productName.Text;
+
+			var frm = new FormProducts(categoryId, prodName);
+            frm.ShowDialog();
+		}
+
+		private void buttonNews_Click(object sender, EventArgs e)
+		{
+            var frm = new FormNews();
+            frm.ShowDialog();
+		}
+
+		private void buttonCategory_Click(object sender, EventArgs e)
+		{
+            var frm = new FormCategory();
+            frm.ShowDialog();
+		}
+	}
 }

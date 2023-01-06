@@ -52,11 +52,29 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCategory.Designer.cs">
+      <DependentUpon>FormCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCreateCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCreateCategory.Designer.cs">
+      <DependentUpon>FormCreateCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCreateNews.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormCreateNews.Designer.cs">
       <DependentUpon>FormCreateNews.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCreateProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCreateProduct.Designer.cs">
+      <DependentUpon>FormCreateProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="FormCreateUser.cs">
       <SubType>Form</SubType>
@@ -76,11 +94,23 @@
     <Compile Include="FormEditNews.Designer.cs">
       <DependentUpon>FormEditNews.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEditProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditProduct.Designer.cs">
+      <DependentUpon>FormEditProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormEditUser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormEditUser.Designer.cs">
       <DependentUpon>FormEditUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormNews.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNews.Designer.cs">
+      <DependentUpon>FormNews.cs</DependentUpon>
     </Compile>
     <Compile Include="FormProducts.cs">
       <SubType>Form</SubType>
@@ -102,6 +132,9 @@
     <EmbeddedResource Include="FormCreateNews.resx">
       <DependentUpon>FormCreateNews.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCreateProduct.resx">
+      <DependentUpon>FormCreateProduct.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCreateUser.resx">
       <DependentUpon>FormCreateUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormEditNews.resx">
       <DependentUpon>FormEditNews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditProduct.resx">
+      <DependentUpon>FormEditProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormEditUser.resx">
       <DependentUpon>FormEditUser.cs</DependentUpon>
