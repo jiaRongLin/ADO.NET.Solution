@@ -43,22 +43,23 @@ from Products as P inner join Categories as C on(P.CategoryId =C.Id)";
 			sql += " Order By C.DisplayOrder";
 			#endregion
 
-			using (var conn = SQLDb.GetConnection())
-			{
-				using(var cmd = conn.CreateCommand())
-				{
-					conn.Open();
-					cmd.CommandText = sql;
-					cmd.Parameters.AddRange(parameters.ToArray()); //Add一個參數 AddRange多個參數
-					var reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+			return SQLDb.Search(SQLDb.GetConnection, ProductDto.GetInstance, sql, parameters.ToArray());
+			//using (var conn = SQLDb.GetConnection())
+			//{
+			//	using(var cmd = conn.CreateCommand())
+			//	{
+			//		conn.Open();
+			//		cmd.CommandText = sql;
+			//		cmd.Parameters.AddRange(parameters.ToArray()); //Add一個參數 AddRange多個參數
+			//		var reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
 
-					while (reader.Read())
-					{
-						var dto = ProductDto.GetInstance(reader);
-						yield return dto;
-					}
-				}
-			}
+			//		while (reader.Read())
+			//		{
+			//			var dto = ProductDto.GetInstance(reader);
+			//			yield return dto;
+			//		}
+			//	}
+			//}
 		}
 	}
 	public class ProductDto

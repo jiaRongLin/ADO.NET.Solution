@@ -81,5 +81,25 @@ namespace ispan.Estore.SqlData
 				}
 			}
 		}
+		public static IEnumerable<T> Search<T>(Func<SqlConnection> funConnection, Func<SqlDataReader, T> funcAssembler, string sql, params SqlParameter[] parameters)
+		{
+			
+			using (var conn = funConnection())
+			{
+				using (var cmd = conn.CreateCommand())
+				{
+					conn.Open();
+					cmd.CommandText = sql;
+					if (parameters != null) cmd.Parameters.AddRange(parameters);//Add一個參數 AddRange多個參數
+					var reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+
+					while (reader.Read())
+					{
+						yield return funcAssembler(reader);
+					}
+				}
+			}
+		}
+
 	}
 }

@@ -77,6 +77,7 @@ values
 			var sql = $"Select * from News Where Id ={newsId}";
 
 			return SQLDb.Get(SQLDb.GetConnection,News.GetInstance, sql);
+			//return SQLDb.Get<News>(SQLDb.GetConnection,News.GetInstance, sql);
 			//using (var conn = SQLDb.GetConnection())
 			//{
 			//	using (var cmd = new SqlCommand(sql, conn))
