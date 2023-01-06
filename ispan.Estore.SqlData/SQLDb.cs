@@ -64,18 +64,20 @@ namespace ispan.Estore.SqlData
 				}
 			}
 		}
-		public static News GetNews(Func<SqlConnection> funConnection, string sql)
+		public static T Get<T>(Func<SqlConnection> funConnection,Func<SqlDataReader,T>funcAssembler, string sql, params SqlParameter[] parameters)
 		{
-			using (var conn = SQLDb.GetConnection())
+			using (var conn = funConnection())
 			{
 				using (var cmd = new SqlCommand(sql, conn))
 				{
 					conn.Open();
 
+					if (parameters != null) cmd.Parameters.AddRange(parameters);
 					var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-					return reader.Read()
-						? News.GetInstance(reader)
-						: null;
+					
+                    return reader.Read()
+						? funcAssembler(reader)
+						: default(T);
 				}
 			}
 		}
