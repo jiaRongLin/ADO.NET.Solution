@@ -12,7 +12,91 @@ namespace ispan.Estore.SqlData
 {
     public class CategoryRepository
     {
-        public Category GetCategory(int categoryId)
+		private readonly string _tableName = "Categories";
+		private Func<SqlConnection> funConnection = SQLDb.GetConnection;
+		public Func<SqlDataReader, Category> funcAssembler = Category.GetInstance;
+
+		public int Create(Category category)
+		{
+			string sql = $@"
+INSERT INTO {_tableName}
+(Name , DisplayOrder)
+VALUES
+(@Name , @DisplayOrder);";
+
+			var parameters = SqlParameterBuilder.Create()
+				.AddNVarChar("@Name",category.Name,30)
+				.AddInt("@DisplayOrder",category.DisplayOrder)
+				.Build();
+			int newId = 0;
+			try
+			{
+				newId = SQLDb.Create(funConnection, sql, parameters);
+			}
+			catch (SqlException ex)
+			{
+				if (ex.Message.Contains("IX_Users"))
+				{
+					throw new Exception("您新增的資料已存在，請修改後再試一次", ex);
+				}
+			}
+			return newId;
+		}
+
+		public int Delete(int CategoryId)
+		{
+			string sql = $@"DELETE FROM {_tableName} WHERE Id ={CategoryId}";
+
+			return SQLDb.UpdateOrDelete(funConnection, sql);			
+		}
+
+		public int Update(Category category)
+		{
+			string sql = $@"
+UPDATE {_tableName}
+SET Name = @Name , DisplayOrder = @DisplayOrder
+WHERE Id ={category.Id};";
+
+			var parameters = SqlParameterBuilder.Create()
+				.AddNVarChar("@Name", category.Name, 30)
+				.AddInt("@DisplayOrder", category.DisplayOrder)
+				.Build();
+
+			return SQLDb.UpdateOrDelete(funConnection, sql, parameters);
+		}
+
+		public IEnumerable<Category> Search(int? Id ,string name)
+		{
+			//生成sql statement
+			string sql = $@"
+SELECT * 
+FROM {_tableName}";
+
+			#region 生成where子句
+			string where = string.Empty;
+
+			var parameters = new List<SqlParameter>();
+
+
+			if (string.IsNullOrEmpty(name) == false)
+			{
+				where += $" AND Name LIKE '%'+ @Name +'%'";
+				parameters.Add(new SqlParameter("@Name", System.Data.SqlDbType.NVarChar, 30) { Value = name });
+			}
+			if (Id.HasValue)
+			{
+				where += $" AND Id = @Id";
+				parameters.Add(new SqlParameter("@Id", System.Data.SqlDbType.Int) { Value = Id });
+			}
+
+			where = where == string.Empty ? where : where = " WHERE " + where.Substring(5);
+			sql += where;
+			#endregion
+
+			return SQLDb.Search(funConnection, funcAssembler, sql, parameters.ToArray());
+		}
+
+		public Category GetCategory(int categoryId)
         {
             using (var conn = SQLDb.GetConnection())
             {
@@ -58,16 +142,16 @@ namespace ispan.Estore.SqlData
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int DisplayOrder { get; set; }
+        public int? DisplayOrder { get; set; }
 
         public static Category GetInstance(SqlDataReader reader)
         {
-            return new Category
-            {
-                Id = reader.GetFieldValue<int>("Id"),
-                Name = reader.GetFieldValue<string>("Name"),
-                DisplayOrder = reader.GetFieldValue<int>("DisplayOrder")
-            };
+            var category = new Category();
+            category.Id = reader.GetFieldValue<int>("Id");
+            category.Name = reader.GetFieldValue<string>("Name");
+            category.DisplayOrder = reader.GetFieldValue<int?>("DisplayOrder");
+           
+            return category;
         }
     }
     public static class SqlDataReaderExtensions

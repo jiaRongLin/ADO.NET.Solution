@@ -39,6 +39,14 @@ namespace ispqn.Estore.WinApp
 		
 		}
 
+		private void NotifyOwner()
+		{
+			IGridContainer container = this.Owner as IGridContainer;
+			if (container != null) container.Display();
+
+			this.DialogResult = DialogResult.OK;
+		}
+
 		private void btn_Update_Click(object sender, EventArgs e)
 		{
 			var news = new News
@@ -62,7 +70,14 @@ namespace ispqn.Estore.WinApp
 			}
 
 			FormEditNews_Load(this, EventArgs.Empty);
+			NotifyOwner();
+		}
 
+		private void buttondelete_Click(object sender, EventArgs e)
+		{
+			new NewsRepository().Delete(newsId);
+
+			NotifyOwner();
 		}
 	}
 }

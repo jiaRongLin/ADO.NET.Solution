@@ -129,6 +129,12 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCategory.resx">
+      <DependentUpon>FormCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCreateCategory.resx">
+      <DependentUpon>FormCreateCategory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCreateNews.resx">
       <DependentUpon>FormCreateNews.cs</DependentUpon>
     </EmbeddedResource>
@@ -149,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormEditUser.resx">
       <DependentUpon>FormEditUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNews.resx">
+      <DependentUpon>FormNews.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormProducts.resx">
       <DependentUpon>FormProducts.cs</DependentUpon>

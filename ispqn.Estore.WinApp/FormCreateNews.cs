@@ -30,6 +30,11 @@ namespace ispqn.Estore.WinApp
 
 			int newId = new NewsRepository().Create(news);
 			MessageBox.Show($"紀錄已新增,={newId}");
+
+			IGridContainer container = this.Owner as IGridContainer;
+			if (container != null) container.Display();
+
+			this.DialogResult= DialogResult.OK;
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
@@ -7,6 +8,9 @@ namespace ispan.Estore.SqlData
 {
 	public class NewsRepository
 	{
+		private readonly string _tableName = "news";
+		private Func<SqlConnection> funConnection = SQLDb.GetConnection;
+		public Func<SqlDataReader, News> funcAssembler = News.GetInstance;
 		public int Create(News entity)
 		{
 			string sql = @"
@@ -119,6 +123,31 @@ where id =@Id;";
 
 			//	}
 			//}
+		}
+		public IEnumerable<News> Search(string Title)
+		{
+			//生成sql statement
+			string sql = $@"
+SELECT * 
+FROM {_tableName}";
+
+			#region 生成where子句
+			string where = string.Empty;
+
+			var parameters = new List<SqlParameter>();
+
+
+			if (string.IsNullOrEmpty(Title) == false)
+			{
+				where += $" AND Title LIKE '%'+ @Title +'%'";
+				parameters.Add(new SqlParameter("@Title", System.Data.SqlDbType.NVarChar, 50) { Value = Title });
+			}
+
+			where = where == string.Empty ? where : where = " WHERE " + where.Substring(5);
+			sql += where;
+			#endregion
+
+			return SQLDb.Search(funConnection, funcAssembler, sql, parameters.ToArray());
 		}
 	}
 
