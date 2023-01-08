@@ -39,10 +39,7 @@ VALUES
 			}
 			catch (SqlException ex)
 			{
-				if (ex.Message.Contains("IX_Users"))
-				{
-					throw new Exception("您新增的商品已存在，請修改後再試一次", ex);
-				}
+				throw new Exception(ex.Message);
 			}
 			return newId;
 		}

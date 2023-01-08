@@ -27,9 +27,18 @@ values
 				.AddInt("@newId", null, ParameterDirection.Output)
 
 				.Build();
+			int result;
+			try
+			{
+				result = SQLDb.Create(SQLDb.GetConnection, sql, parameters);
+			}
+			catch(Exception ex)
+			{
+				throw new Exception(ex.Message);
+			} 
 
-			return SQLDb.Create(SQLDb.GetConnection, sql, parameters);
 
+			return result;
 			//SqlParameter[] parameters = new SqlParameter[]
 			//{
 			//	new SqlParameter("@Title",System.Data.SqlDbType.NVarChar,50){ Value=entity.Title},

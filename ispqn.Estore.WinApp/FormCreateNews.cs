@@ -27,14 +27,23 @@ namespace ispqn.Estore.WinApp
 				CreatedTime = DateTime.Now,
 				ModifiedTime = DateTime.Now
 			};
-
-			int newId = new NewsRepository().Create(news);
-			MessageBox.Show($"紀錄已新增,={newId}");
+			try
+			{
+				int newId = new NewsRepository().Create(news);
+				MessageBox.Show($"紀錄已新增,={newId}");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("新增失敗喔!!!" + ex.Message);
+			}
+			
 
 			IGridContainer container = this.Owner as IGridContainer;
 			if (container != null) container.Display();
 
 			this.DialogResult= DialogResult.OK;
 		}
+
+		
 	}
 }

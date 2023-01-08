@@ -9,11 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ispqn.Estore.WinApp.Form1;
 
 namespace ispqn.Estore.WinApp
 {
-    public partial class Form1 : Form
-    {
+	
+public partial class Form1 : Form
+	{
         public Form1()
         {
             InitializeComponent();
@@ -83,16 +85,16 @@ namespace ispqn.Estore.WinApp
             int countOfProductsByCategory = new CategoryRepository().GetProductCount(categroyId);
             MessageBox.Show(countOfProductsByCategory.ToString());
         }
-
-        private void btn_GetProducts_Click(object sender, EventArgs e)
+		
+		private void btn_GetProducts_Click(object sender, EventArgs e)
         {
-            bool isInt = int.TryParse(text_categoryid.Text, out int value);
-            int? categoryId = isInt ? value : (int?)null;
-            string prodName = text_productName.Text;
-
-            var frm = new FormProducts(categoryId,prodName);
-            frm.ShowDialog();
-        }
+			bool isInt = int.TryParse(text_categoryid.Text, out int value);
+			int? categoryId = isInt ? value : (int?)null;
+			string prodName = text_productName.Text;
+			var frm = new FormProducts(categoryId, prodName);
+			frm.dataGridView2.Visible=false;
+			frm.ShowDialog();
+		}
 
         private void btn_createnews_Click(object sender, EventArgs e)
         {
@@ -138,17 +140,17 @@ namespace ispqn.Estore.WinApp
             var frm = new FormUser();
             frm.ShowDialog();
         }
-
-		private void buttonProduct_Click(object sender, EventArgs e)
+		private  void buttonProduct_Click(object sender, EventArgs e)
 		{
 			bool isInt = int.TryParse(text_categoryid.Text, out int value);
 			int? categoryId = isInt ? value : (int?)null;
 			string prodName = text_productName.Text;
 
 			var frm = new FormProducts(categoryId, prodName);
-            frm.ShowDialog();
+            frm.dataGridView1.Visible = false;
+			frm.ShowDialog();
 		}
-
+       
 		private void buttonNews_Click(object sender, EventArgs e)
 		{
             var frm = new FormNews();

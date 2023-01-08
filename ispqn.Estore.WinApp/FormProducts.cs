@@ -35,36 +35,38 @@ namespace ispqn.Estore.WinApp
 			this.categoryId = categoryId; //這裡才能改
 			this.prodName = prodName;
 		}
-
+		public void Display()
+		{
+			_dto = repo.Search(SId, SName).ToList();
+			dataGridView2.DataSource = _dto;
+		}
 		private void FormProducts_Load(object sender, EventArgs e)
 		{
 			#region Form1的search
-			var products = new ProductRepository().Search(categoryId,prodName).ToList();
+			var products = new ProductRepository().Search(categoryId, prodName).ToList();
 			this.dataGridView1.DataSource = products;
 			#endregion
 
 			Display();
 		}
 
-		public void Display()
-		{
-			_dto = repo.Search(SId,SName).ToList();
-			dataGridView1.DataSource= _dto;
-		}
+		
 
 		private void buttonSearch_Click(object sender, EventArgs e)
 		{
+			this.dataGridView2.Visible= true;
 			Display();
 		}
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
+			this.dataGridView2.Visible = true;
 			var frm = new FormCreateProduct();
 			frm.Owner= this;
 			frm.ShowDialog();
 		}
 
-		private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+		private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0) return;
 

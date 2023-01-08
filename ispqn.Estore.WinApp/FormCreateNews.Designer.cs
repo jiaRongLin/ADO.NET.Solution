@@ -38,41 +38,46 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(35, 67);
+			this.label1.Location = new System.Drawing.Point(44, 85);
+			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(34, 15);
+			this.label1.Size = new System.Drawing.Size(43, 19);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Title";
 			// 
 			// tex_title
 			// 
-			this.tex_title.Location = new System.Drawing.Point(114, 59);
+			this.tex_title.Location = new System.Drawing.Point(142, 75);
+			this.tex_title.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.tex_title.Name = "tex_title";
-			this.tex_title.Size = new System.Drawing.Size(535, 25);
+			this.tex_title.Size = new System.Drawing.Size(668, 30);
 			this.tex_title.TabIndex = 1;
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(35, 128);
+			this.label2.Location = new System.Drawing.Point(44, 162);
+			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(72, 15);
+			this.label2.Size = new System.Drawing.Size(93, 19);
 			this.label2.TabIndex = 0;
 			this.label2.Text = "Description";
 			// 
 			// tex_Description
 			// 
-			this.tex_Description.Location = new System.Drawing.Point(114, 125);
+			this.tex_Description.Location = new System.Drawing.Point(142, 158);
+			this.tex_Description.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.tex_Description.Multiline = true;
 			this.tex_Description.Name = "tex_Description";
-			this.tex_Description.Size = new System.Drawing.Size(535, 244);
+			this.tex_Description.Size = new System.Drawing.Size(668, 308);
 			this.tex_Description.TabIndex = 1;
 			// 
 			// btn_save
 			// 
-			this.btn_save.Location = new System.Drawing.Point(664, 380);
+			this.btn_save.Location = new System.Drawing.Point(830, 481);
+			this.btn_save.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.btn_save.Name = "btn_save";
-			this.btn_save.Size = new System.Drawing.Size(110, 43);
+			this.btn_save.Size = new System.Drawing.Size(138, 54);
 			this.btn_save.TabIndex = 2;
 			this.btn_save.Text = "Save";
 			this.btn_save.UseVisualStyleBackColor = true;
@@ -80,14 +85,15 @@
 			// 
 			// FormCreateNews
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 19F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(1000, 570);
 			this.Controls.Add(this.btn_save);
 			this.Controls.Add(this.tex_Description);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.tex_title);
 			this.Controls.Add(this.label1);
+			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.Name = "FormCreateNews";
 			this.Text = "FormCreateNews";
 			this.ResumeLayout(false);
