@@ -55,12 +55,14 @@ namespace ispqn.Estore.WinApp
 		private void buttonSearch_Click(object sender, EventArgs e)
 		{
 			this.dataGridView2.Visible= true;
+			this.dataGridView1.Visible= false;
 			Display();
 		}
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
 			this.dataGridView2.Visible = true;
+			this.dataGridView1.Visible = false;
 			var frm = new FormCreateProduct();
 			frm.Owner= this;
 			frm.ShowDialog();
