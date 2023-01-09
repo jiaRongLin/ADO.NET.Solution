@@ -32,21 +32,21 @@ namespace ispqn.Estore.WinApp
 
 		private void BindForm(ProductEntity product)
 		{
-			txtId.Text=product.CategoryId.HasValue?
+			comboBoxId.Text=product.CategoryId.HasValue?
 				product.CategoryId.ToString():string.Empty;
 			txtName.Text = product.Name;
 			txtDescription.Text = product.Description;
 			txtPrice.Text=product.Price.HasValue?
 				product.Price.ToString():string.Empty;
-			txtStatus.Text=product.Status.ToString();
+			comboBoxstatus.Text=product.Status.ToString();
 			txtImage.Text = product.ProductImage;
 			txtStock.Text=product.Stock.HasValue?
 				product.Stock.ToString():string.Empty;
 		
 		}
-		private int? CategoryId => int.TryParse(txtId.Text, out int categoryId) ? categoryId : (int?)null;
+		private int CategoryId => int.Parse(comboBoxId.Text);
 		private int? Price => int.TryParse(txtPrice.Text, out int price) ? price : (int?)null;
-		private bool? Status => bool.Parse(txtStatus.Text);
+		private bool? Status => bool.Parse(comboBoxstatus.Text);
 		private int? Stock => int.TryParse(txtStock.Text, out int stock) ? stock : (int?)null;
 		private ProductEntity GetModel()
 			=> new ProductEntity

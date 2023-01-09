@@ -17,9 +17,9 @@ namespace ispqn.Estore.WinApp
 		{
 			InitializeComponent();
 		}
-		private int? CategoryId => int.TryParse(txtId.Text, out int categoryId) ? categoryId : (int?)null;
-		private int? Price=>int.TryParse(txtPrice.Text, out int price) ? price : (int?)null;
-		private bool? Status=>bool.Parse(txtStatus.Text);
+		private int? CategoryId => int.Parse(comboBoxId.Text);
+		private int? Price=>int.Parse(txtPrice.Text);
+		private bool? Status=>bool.Parse(comboBoxstatus.Text);
 		private int? Stock => int.TryParse(txtStock.Text, out int stock) ? stock : (int?)null;
 
 		private ProductEntity GetModel()
