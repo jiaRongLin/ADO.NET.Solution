@@ -49,6 +49,7 @@ namespace ispqn.Estore.WinApp
 		private int? UserHeight
 			=> int.TryParse(txtHeight.Text, out int height) ? height : (int?)null;
 
+		//判斷email是否有輸入 空字串視為null
 		private string Email
 			=> string.IsNullOrEmpty(txtEmail.Text) ? null : txtEmail.Text;
 		private UserUpdateVm GetModel()
@@ -127,7 +128,7 @@ namespace ispqn.Estore.WinApp
 			}
 			catch(Exception ex)
 			{
-				MessageBox.Show("更新錯誤" + ex.Message);
+				MessageBox.Show("更新錯誤 " + ex.Message);
 			}
 			NotifyOwner();
 		}

@@ -51,19 +51,6 @@ VALUES
 				.AddInt("@Height", entity.Height)
 				.AddNVarChar("@Email", entity.Email, 256)
 				.Build();
-			//int newId = 0;
-			//try 
-			//{ 
-			//	newId = SQLDb.Create(funConnection, sql, parameters);
-			//}
-			//catch(SqlException ex)
-			//{
-			//	if (ex.Message.Contains("IX_Users"))
-			//	{
-			//		throw new Exception("您新增的帳號已存在，請修改後再試一次", ex);
-			//	}
-			//}
-			//return newId;
 
 			return SQLDb.Create(funConnection, sql, parameters);
 		}
