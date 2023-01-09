@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,19 +51,21 @@ VALUES
 				.AddInt("@Height", entity.Height)
 				.AddNVarChar("@Email", entity.Email, 256)
 				.Build();
-			int newId = 0;
-			try 
-			{ 
-				newId = SQLDb.Create(funConnection, sql, parameters);
-			}
-			catch(SqlException ex)
-			{
-				if (ex.Message.Contains("IX_Users"))
-				{
-					throw new Exception("您新增的帳號已存在，請修改後再試一次", ex);
-				}
-			}
-			return newId;
+			//int newId = 0;
+			//try 
+			//{ 
+			//	newId = SQLDb.Create(funConnection, sql, parameters);
+			//}
+			//catch(SqlException ex)
+			//{
+			//	if (ex.Message.Contains("IX_Users"))
+			//	{
+			//		throw new Exception("您新增的帳號已存在，請修改後再試一次", ex);
+			//	}
+			//}
+			//return newId;
+
+			return SQLDb.Create(funConnection, sql, parameters);
 		}
 
 		public int Delete(int userId)
@@ -95,7 +98,21 @@ WHERE Id ={entity.Id};";
 				.AddNVarChar("@Email", entity.Email, 256)
 				.Build();
 
-			return SQLDb.UpdateOrDelete(funConnection, sql, parameters);
+			int newId =0;
+			try 
+			{ 
+				newId = SQLDb.UpdateOrDelete(funConnection, sql, parameters); 
+			}
+			catch(Exception ex)
+			{
+				throw new Exception(ex.Message);
+				//if (ex.Message.Contains("IX_Users"))
+				//{
+				//	throw new Exception("您更新的帳號已存在，請修改後再試一次", ex);
+				//}
+			}
+				
+			return newId;
 		}
 
 		public IEnumerable<UserEntity> Search(string name,string account,string email)
@@ -143,12 +160,11 @@ FROM {_tableName}";
 
 		public UserEntity GetByAccount(string account)
 		{
-			string sql = $"SELECT * FROM {_tableName} WHERE Account =@Account";
+			string sql = $"SELECT * FROM {_tableName} WHERE Account = @Account";
 			SqlParameter[] parameters = new SqlParameter[] { new SqlParameter("@Account", System.Data.SqlDbType.NVarChar, 50) { Value = account } };
 
-			return SQLDb.Get(funConnection, funcAssembler, sql);
+			return SQLDb.Get(funConnection, funcAssembler, sql,parameters);
 		} 
-
 	}
 	
 }

@@ -26,6 +26,9 @@ namespace ispqn.Estore.WinApp
 
 		private int? UserHeight
 			=> int.TryParse (txtHeight.Text,out int height)? height:(int?)null;
+
+		private string Email
+			=> string.IsNullOrEmpty(txtEmail.Text)? null:txtEmail.Text;
 		private UserCreateVm GetModel()
 		   => new UserCreateVm
 		   {
@@ -35,7 +38,7 @@ namespace ispqn.Estore.WinApp
 			   ConfirmPassword = txtconfirm.Text,
 			   DateOfBirth =this.DateOfBirth,
 			   Height =this.UserHeight,
-			   Email = txtEmail.Text,
+			   Email = this.Email,
 		   };
 
 		private (bool isValid, List<ValidationResult> errors) Validate(UserCreateVm vm)

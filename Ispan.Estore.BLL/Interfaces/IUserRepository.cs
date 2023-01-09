@@ -10,6 +10,7 @@ namespace Ispan.Estore.BLL.Interfaces
 	public interface IUserRepository
 	{
 		int Create(UserEntity entity);
+		int Update(UserEntity entity);
 
 		UserEntity GetByAccount(string account);
 	}

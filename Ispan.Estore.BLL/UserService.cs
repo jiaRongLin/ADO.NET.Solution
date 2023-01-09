@@ -27,5 +27,17 @@ namespace Ispan.Estore.BLL
 			//若通過,建檔
 			return repo.Create(entity);
 		}
+
+		public int Update(UserUpdateDto dto)
+		{
+			var entity = dto.ToEntity();
+
+			//驗證Account是否唯一
+			var entityInDb = repo.GetByAccount(entity.Account);
+			if (entityInDb != null && entityInDb.Id !=entity.Id) throw new Exception("您更新的帳號已存在");
+
+			return repo.Update(entity);
+
+		}
 	}
 }

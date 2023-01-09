@@ -63,13 +63,13 @@ namespace ispqn.Estore.WinApp
 
 		private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			//if(e.RowIndex<0) return;
+			if (e.RowIndex < 0) return;
 
-			//int userId = _user[e.RowIndex].Id;
+			int userId = _user[e.RowIndex].Id;
 
-			//var frm = new FormEditUser(userId);
-			//frm.Owner = this;
-			//frm.ShowDialog();
+			var frm = new FormEditUser(userId);
+			frm.Owner = this;
+			frm.ShowDialog();
 		}
 	}
 }
