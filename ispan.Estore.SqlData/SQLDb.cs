@@ -16,6 +16,7 @@ namespace ispan.Estore.SqlData
 
         public static string GetConnectionString(string keyOfConnString)
         {
+			//dll參考config
             var node =System.Configuration.ConfigurationManager
                                .ConnectionStrings[keyOfConnString];
             if (node == null) throw new Exception($"找不到節點{keyOfConnString},請再確認一次");

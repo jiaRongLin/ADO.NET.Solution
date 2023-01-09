@@ -1,4 +1,7 @@
 ﻿using ispan.Estore.SqlData;
+using Ispan.Estore.BLL.Core;
+using Ispan.Estore.BLL.DTOs;
+using ispqn.Estore.WinApp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,20 +45,20 @@ namespace ispqn.Estore.WinApp
 
 		private int? UserHeight
 			=> int.TryParse(txtHeight.Text, out int height) ? height : (int?)null;
-		private UserEntity GetModel()
-		   => new UserEntity
+		private UserUpdateVm GetModel()
+		   => new UserUpdateVm
 		   {
-			   Id = this.userId,
-			   Name = txtName.Text,
-			   Account = txtAccount.Text,
-			   Password = txtPassword.Text,
-			   DateOfBirth = this.DateOfBirth,
-			   Height = this.UserHeight,
-			   Email = txtEmail.Text,
+			   //Id = this.userId,
+			   //Name = txtName.Text,
+			   //Account = txtAccount.Text,
+			   //Password = txtPassword.Text,
+			   //DateOfBirth = this.DateOfBirth,
+			   //Height = this.UserHeight,
+			   //Email = txtEmail.Text,
 		   };
 		private void buttonupdate_Click(object sender, EventArgs e)
 		{
-			new UserRepository().Update(GetModel());
+			//new UserRepository().Update(GetModel());
 			NotifyOwner();
 		}
 		private void NotifyOwner()
