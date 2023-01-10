@@ -34,7 +34,8 @@ namespace Ispan.Estore.BLL
 
 			//驗證Account是否唯一
 			var entityInDb = repo.GetByAccount(entity.Account);
-			if (entityInDb != null && entityInDb.Id !=entity.Id) throw new Exception("您更新的帳號已存在，請修改後再試一次"); //要先判斷是否為為null才能再判斷Id 如果先判斷Id,Id為null會失敗
+			if (entityInDb != null && entityInDb.Id !=entity.Id) throw new Exception("您更新的帳號已存在，請修改後再試一次"); 
+			//要先判斷是否為為null才能再判斷Id 如果先判斷Id,Id為null會失敗
 
 			return repo.Update(entity);
 

@@ -150,7 +150,7 @@ FROM {_tableName}";
 			string sql = $"SELECT * FROM {_tableName} WHERE Account = @Account";
 			SqlParameter[] parameters = new SqlParameter[] { new SqlParameter("@Account", System.Data.SqlDbType.NVarChar, 50) { Value = account } };
 
-			return SQLDb.Get(funConnection, funcAssembler, sql,parameters);
+			return SQLDb.Get(funConnection, funcAssembler, sql, parameters);
 		} 
 	}
 	
